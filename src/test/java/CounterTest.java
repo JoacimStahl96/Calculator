@@ -39,4 +39,23 @@ public class CounterTest {
         //   assertEquals(300, counter.addSubMultDiv("division", 15,5));
         assertEquals(3, counter.addSubMultDiv("division", 15, 5));
     }
+
+    @Test
+    public void test_strings_to_addition() {
+        // grön
+        assertEquals(4, counter.stringAddSub("2 add 2"));
+
+        //smäller
+        assertEquals(4, counter.stringAddSub(""));
+    }
+
+    @Test
+    public void test_strings_to_subtraction() {
+        // denna smäller
+        // assertEquals(4,counter.stringAddSub("5 sub 2"));
+
+        // denna är grön - trimmar innan första siffran
+        assertEquals(5, counter.stringAddSub("    7 sub 2"));
+
+    }
 }

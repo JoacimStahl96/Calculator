@@ -18,6 +18,25 @@ public class Counter {
             default -> throw new IllegalArgumentException();
         };
     }
+
+    public int stringAddSub(String value) {
+
+        String[] arrayValues = value.trim().split("\\s+");
+        int number1 = Integer.parseInt(arrayValues[0]);
+        int number2 = Integer.parseInt(arrayValues[2]);
+        String type = arrayValues[1];
+
+        if(value.isEmpty()){
+            throw new IllegalArgumentException();
+        }
+
+        return switch (type) {
+            case "add" -> number1 + number2;
+            case "sub" -> number1 - number2;
+            default -> throw new IllegalArgumentException();
+        };
+
+    }
 }
 
 
