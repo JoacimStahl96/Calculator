@@ -25,6 +25,10 @@ public class Counter {
 
     public int stringAddSub(String value) {
 
+        if (value.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
+
         String[] arrayValues = value.trim().split("\\s+");
         int number1 = Integer.parseInt(arrayValues[0]);
         int number2 = Integer.parseInt(arrayValues[2]);
@@ -32,12 +36,13 @@ public class Counter {
         String type = arrayValues[1];
         String type2 = "";
 
-        if (value.isEmpty()) {
-            throw new IllegalArgumentException();
-        }
         if (arrayValues.length > 3) {
             type2 = arrayValues[3];
             number3 = Integer.parseInt(arrayValues[4]);
+
+            if(number3 == 0 && (type2.equals("/") || type2.equals("*"))){
+                throw new IllegalArgumentException();
+            }
         }
 
         if (((number2 == 0 || number1 == 0) && (type.equals("/") || type.equals("*")))) {

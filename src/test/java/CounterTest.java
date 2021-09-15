@@ -40,7 +40,7 @@ public class CounterTest {
         assertEquals(3, counter.addSubMultDiv("division", 15, 5));
         assertEquals(3, counter.addSubMultDiv("division", 15, 0));
 
-      //  assertEquals(3, counter.addSubMultDiv("", 9, 3));
+        //  assertEquals(3, counter.addSubMultDiv("", 9, 3));
     }
 
     @Test
@@ -51,7 +51,7 @@ public class CounterTest {
         assertEquals(6, counter.stringAddSub("2 + 2 * 2"));
 
         //smäller
-    //    assertEquals(4, counter.stringAddSub(""));
+        //    assertEquals(4, counter.stringAddSub(""));
     }
 
     @Test
@@ -87,5 +87,85 @@ public class CounterTest {
     @Test
     public void test_strings_sub_add_success() {
         assertEquals(2, counter.stringAddSub("2 - 2 + 2"));
+    }
+
+    @Test
+    public void test_strings_sub_sub_success() {
+        assertEquals(-2, counter.stringAddSub("2 - 2 - 2"));
+    }
+
+    @Test
+    public void test_strings_sub_multi_success() {
+        assertEquals(2, counter.stringAddSub("2 - 2 * 2"));
+    }
+
+    @Test
+    public void test_strings_sub_div_success() {
+        assertEquals(2, counter.stringAddSub("2 - 2 / 2"));
+    }
+
+    @Test
+    public void test_strings_multi_add_success() {
+        assertEquals(2, counter.stringAddSub("2 * 2 + 2"));
+    }
+
+    @Test
+    public void test_strings_multi_sub_success() {
+        assertEquals(10, counter.stringAddSub("2 * 6 - 2"));
+    }
+
+    @Test
+    public void test_strings_multi_multi_success() {
+        assertEquals(8, counter.stringAddSub("2 * 2 * 2"));
+    }
+
+    @Test
+    public void test_strings_multi_div_success() {
+        assertEquals(2, counter.stringAddSub("2 * 2 / 2"));
+    }
+
+    @Test
+    public void test_strings_div_add_success() {
+        assertEquals(5, counter.stringAddSub("6 / 2 + 2"));
+    }
+
+    @Test
+    public void test_strings_div_sub_success() {
+        assertEquals(4, counter.stringAddSub("12 / 2 - 2"));
+    }
+
+    @Test
+    public void test_strings_div_multi_success() {
+        assertEquals(30, counter.stringAddSub("20 / 2 * 3"));
+    }
+
+    @Test
+    public void test_strings_div_div_success() {
+        assertEquals(4, counter.stringAddSub("40 / 3 / 3"));
+    }
+
+    @Test
+    public void test_strings_div_div_fail() {
+        assertEquals(6, counter.stringAddSub("40 / 3 / 0"));
+    }
+
+    @Test
+    public void test_strings_div_multi_fail() {
+        assertEquals(6, counter.stringAddSub("40 / 3 * 0"));
+    }
+
+    @Test
+    public void test_strings_div_multi_zero_fail() {
+        assertEquals(6, counter.stringAddSub("40 / 0 * 3"));
+    }
+
+    @Test
+    public void test_strings_multi_multi_zero_fail() {
+        assertEquals(6, counter.stringAddSub("40 * 0 * 3"));
+    }
+
+    @Test
+    public void test_strings_empty_string_fail() {
+        assertEquals(6, counter.stringAddSub(""));
     }
 }
