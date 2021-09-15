@@ -38,15 +38,20 @@ public class CounterTest {
 
         //   assertEquals(300, counter.addSubMultDiv("division", 15,5));
         assertEquals(3, counter.addSubMultDiv("division", 15, 5));
+        assertEquals(3, counter.addSubMultDiv("division", 15, 0));
+
+      //  assertEquals(3, counter.addSubMultDiv("", 9, 3));
     }
 
     @Test
     public void test_strings_to_addition() {
         // grön
-        assertEquals(4, counter.stringAddSub("2 add 2"));
+        assertEquals(4, counter.stringAddSub("2 + 2"));
+
+        assertEquals(6, counter.stringAddSub("2 + 2 * 2"));
 
         //smäller
-        assertEquals(4, counter.stringAddSub(""));
+    //    assertEquals(4, counter.stringAddSub(""));
     }
 
     @Test
@@ -55,7 +60,32 @@ public class CounterTest {
         // assertEquals(4,counter.stringAddSub("5 sub 2"));
 
         // denna är grön - trimmar innan första siffran
-        assertEquals(5, counter.stringAddSub("    7 sub 2"));
+        assertEquals(5, counter.stringAddSub("    7 - 2"));
 
+    }
+
+    @Test
+    public void test_strings_add_add_success() {
+        assertEquals(6, counter.stringAddSub("2 + 2 + 2"));
+    }
+
+    @Test
+    public void test_strings_add_sub_success() {
+        assertEquals(2, counter.stringAddSub("2 + 2 - 2"));
+    }
+
+    @Test
+    public void test_strings_add_multi_success() {
+        assertEquals(6, counter.stringAddSub("2 + 2 * 2"));
+    }
+
+    @Test
+    public void test_strings_add_division_success() {
+        assertEquals(3, counter.stringAddSub("2 + 2 / 2"));
+    }
+
+    @Test
+    public void test_strings_sub_add_success() {
+        assertEquals(2, counter.stringAddSub("2 - 2 + 2"));
     }
 }
