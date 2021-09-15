@@ -23,30 +23,30 @@ public class Counter {
         };
     }
 
-    public int stringAddSub(String value) {
+    public int stringAddSub(String inputValue) {
 
-        if (value.isEmpty()) {
-            throw new IllegalArgumentException();
+        if (inputValue.isEmpty()) {
+            throw new IllegalArgumentException("No value found");
         }
 
-        String[] arrayValues = value.trim().split("\\s+");
+        String[] arrayValues = inputValue.trim().split("\\s+");
         int number1 = Integer.parseInt(arrayValues[0]);
         int number2 = Integer.parseInt(arrayValues[2]);
         int number3 = 0;
         String type = arrayValues[1];
         String type2 = "";
 
+        if (((number2 == 0 || number1 == 0) && (type.equals("/") || type.equals("*")))) {
+            throw new IllegalArgumentException("Cannot be divided or multiplied by zero");
+        }
+
         if (arrayValues.length > 3) {
             type2 = arrayValues[3];
             number3 = Integer.parseInt(arrayValues[4]);
 
-            if(number3 == 0 && (type2.equals("/") || type2.equals("*"))){
-                throw new IllegalArgumentException();
+            if (number3 == 0 && (type2.equals("/") || type2.equals("*"))) {
+                throw new IllegalArgumentException("Cannot be divided or multiplied by zero");
             }
-        }
-
-        if (((number2 == 0 || number1 == 0) && (type.equals("/") || type.equals("*")))) {
-            throw new IllegalArgumentException();
         }
 
         return switch (type + type2) {

@@ -1,6 +1,7 @@
 import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CounterTest {
 
@@ -38,6 +39,8 @@ public class CounterTest {
 
         //   assertEquals(300, counter.addSubMultDiv("division", 15,5));
         assertEquals(3, counter.addSubMultDiv("division", 15, 5));
+
+        // denna smäller pga number2 = 0;
         assertEquals(3, counter.addSubMultDiv("division", 15, 0));
 
         //  assertEquals(3, counter.addSubMultDiv("", 9, 3));
@@ -96,17 +99,17 @@ public class CounterTest {
 
     @Test
     public void test_strings_sub_multi_success() {
-        assertEquals(2, counter.stringAddSub("2 - 2 * 2"));
+        assertEquals(-2, counter.stringAddSub("2 - 2 * 2"));
     }
 
     @Test
     public void test_strings_sub_div_success() {
-        assertEquals(2, counter.stringAddSub("2 - 2 / 2"));
+        assertEquals(1, counter.stringAddSub("2 - 2 / 2"));
     }
 
     @Test
     public void test_strings_multi_add_success() {
-        assertEquals(2, counter.stringAddSub("2 * 2 + 2"));
+        assertEquals(6, counter.stringAddSub("2 * 2 + 2"));
     }
 
     @Test
@@ -141,31 +144,37 @@ public class CounterTest {
 
     @Test
     public void test_strings_div_div_success() {
-        assertEquals(4, counter.stringAddSub("40 / 3 / 3"));
+        assertEquals(4, counter.stringAddSub("40 / 3 / 3 /"));
     }
 
     @Test
     public void test_strings_div_div_fail() {
-        assertEquals(6, counter.stringAddSub("40 / 3 / 0"));
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> counter.stringAddSub("40 / 3 / 0"));
+        assertEquals("Cannot be divided or multiplied by zero", illegalArgumentException.getMessage());
     }
 
     @Test
     public void test_strings_div_multi_fail() {
-        assertEquals(6, counter.stringAddSub("40 / 3 * 0"));
+
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> counter.stringAddSub("40 / 3 * 0"));
+        assertEquals("Cannot be divided or multiplied by zero", illegalArgumentException.getMessage());
     }
 
     @Test
     public void test_strings_div_multi_zero_fail() {
-        assertEquals(6, counter.stringAddSub("40 / 0 * 3"));
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> counter.stringAddSub("40 / 0 * 3"));
+        assertEquals("Cannot be divided or multiplied by zero", illegalArgumentException.getMessage());
     }
 
     @Test
     public void test_strings_multi_multi_zero_fail() {
-        assertEquals(6, counter.stringAddSub("40 * 0 * 3"));
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> counter.stringAddSub("40 * 0 * 3"));
+        assertEquals("Cannot be divided or multiplied by zero", illegalArgumentException.getMessage());
     }
 
     @Test
     public void test_strings_empty_string_fail() {
-        assertEquals(6, counter.stringAddSub(""));
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> counter.stringAddSub(""));
+        assertEquals("No value found", illegalArgumentException.getMessage());
     }
 }
