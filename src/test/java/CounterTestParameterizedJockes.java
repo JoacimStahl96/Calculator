@@ -5,24 +5,23 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 import java.util.Collection;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(Parameterized.class)
-public class CounterTestParameterized {
+public class CounterTestParameterizedJockes {
 
-    Counter counter = new Counter();
+    JockesRefactorCounter jockesRefactorCounter = new JockesRefactorCounter();
     String value;
     int result;
 
-    public CounterTestParameterized(int result, String value) {
+    public CounterTestParameterizedJockes(int result, String value) {
         this.result = result;
         this.value = value;
     }
 
     @Test
-    public void test_strings_div_multi_success() {
-
-        assertEquals(result, counter.stringAddSubParameterized(result, value));
+    public void test_strings_div_multi_success(){
+        assertEquals(result, jockesRefactorCounter.stringAddSubParameterized(value));
     }
 
     @Parameterized.Parameters
@@ -36,6 +35,7 @@ public class CounterTestParameterized {
                 {25000, "100 / 2 * 500"},
                 {10, "             5 + 10 - 5"},
                 {10, "20 / 10 * 5"}
+
         });
     }
 }

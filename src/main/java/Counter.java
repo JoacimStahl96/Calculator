@@ -9,11 +9,9 @@ public class Counter {
     }
 
     public int addSubMultDiv(String type, int number1, int number2) {
-
         if (((number2 == 0 || number1 == 0) && (type.equals("division") || type.equals("multiplication")))) {
             throw new IllegalArgumentException();
         }
-
         return switch (type) {
             case "addition" -> number1 + number2;
             case "subtraction" -> number1 - number2;
@@ -81,7 +79,9 @@ public class Counter {
             default -> throw new IllegalArgumentException();
         };
     }
+
  // int result parametern används även om den är grå, är den som får det förväntade värdet att fungera i parameterized testet
+
     public int stringAddSubParameterized(int result, String inputValue) {
 
         if (inputValue.isEmpty()) {
@@ -112,13 +112,10 @@ public class Counter {
         }
 
         switch (type + type2) {
-
-
             case "+" -> {
                 result = (number1 + number2);
                 return result;
             }
-
             case "-" -> {
                 result = (number1 - number2);
                 return result;
@@ -131,12 +128,10 @@ public class Counter {
                 result = number1 / number2;
                 return result;
             }
-
             case "+" + "+" -> {
                 result = number1 + number2 + number3;
                 return result;
             }
-
             case "+" + "-" -> {
                 result = number1 + number2 - number3;
                 return result;
@@ -149,7 +144,6 @@ public class Counter {
                 result = number1 + number2 / number3;
                 return result;
             }
-
             case "-" + "-" -> {
                 result = number1 - number2 - number3;
                 return result;
@@ -199,7 +193,6 @@ public class Counter {
                 result = number1 / number2 / number3;
                 return result;
             }
-
             default -> throw new IllegalArgumentException();
         }
     }
