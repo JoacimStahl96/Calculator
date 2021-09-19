@@ -27,7 +27,6 @@ public class JockesRefactorCounter {
             if (isValuesAllowed(num3, type2)) {
                 throw new IllegalArgumentException("Cannot be divided or multiplied by zero");
             }
-
             return advancedCalc(num1, num2, num3, type, type2);
 
         }
@@ -134,5 +133,4 @@ public class JockesRefactorCounter {
             default -> throw new IllegalArgumentException("Something went wrong");
         }
     }
-
 }
