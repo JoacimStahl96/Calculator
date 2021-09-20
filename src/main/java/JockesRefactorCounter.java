@@ -4,30 +4,28 @@ public class JockesRefactorCounter {
 
     public double mathValueFromStrings(String inputValue) {
 
+        /*
+            TODO fixa matematiska regler, smäller på test 3
+         */
+
         if (inputValue.isEmpty()) {
             throw new IllegalArgumentException("No value found");
         }
         List<String> inputList = List.of(inputValue.trim().split(" "));
 
-        double num1 = Double.parseDouble(inputList.get(0));
-        double num2 = Double.parseDouble(inputList.get(2));
-        String type = inputList.get(1);
+        double sum = Double.parseDouble(inputList.get(0));
+        double result = 0;
 
-        if (isValuesAllowed(num1, num2, type)) {
-            throw new IllegalArgumentException("Cannot be divided by zero");
+        for (int i = 1; i < inputList.size(); i += 2) {
+
+            System.out.println("sum: " + sum + " operator: " + inputList.get(i) + " next number: " + inputList.get(i + 1));
+            System.out.println("========================");
+            System.out.println(simpleCalc(sum, Double.parseDouble(inputList.get(i + 1)), inputList.get(i)));
+
+            result = simpleCalc(sum, Double.parseDouble(inputList.get(i + 1)), inputList.get(i));
+            sum = result;
         }
-
-        if (inputList.size() > 3) {
-            String type2 = inputList.get(3);
-            double num3 = Double.parseDouble(inputList.get(4));
-
-            if (isValuesAllowed(num3, type2)) {
-                throw new IllegalArgumentException("Cannot be divided by zero");
-            }
-            return advancedCalc(num1, num2, num3, type, type2);
-
-        }
-        return simpleCalc(num1, num2, type);
+        return result;
     }
 
     public boolean isValuesAllowed(double num1, double num2, String type) {
@@ -71,61 +69,6 @@ public class JockesRefactorCounter {
             }
             case "/" -> {
                 return division(num1, num2);
-            }
-            default -> throw new IllegalArgumentException("Something went wrong");
-        }
-    }
-
-    public double advancedCalc(double num1, double num2, double num3, String type, String type2) {
-
-        switch (type + type2) {
-            case "+" + "+" -> {
-                return num1 + num2 + num3;
-            }
-            case "+" + "-" -> {
-                return num1 + num2 - num3;
-            }
-            case "+" + "*" -> {
-                return num1 + num2 * num3;
-            }
-            case "+" + "/" -> {
-                return num1 + num2 / num3;
-            }
-            case "-" + "-" -> {
-                return num1 - num2 - num3;
-            }
-            case "-" + "+" -> {
-                return num1 - num2 + num3;
-            }
-            case "-" + "*" -> {
-                return num1 - num2 * num3;
-            }
-            case "-" + "/" -> {
-                return num1 - num2 / num3;
-            }
-            case "*" + "+" -> {
-                return num1 * num2 + num3;
-            }
-            case "*" + "-" -> {
-                return num1 * num2 - num3;
-            }
-            case "*" + "*" -> {
-                return num1 * num2 * num3;
-            }
-            case "*" + "/" -> {
-                return num1 * num2 / num3;
-            }
-            case "/" + "+" -> {
-                return num1 / num2 + num3;
-            }
-            case "/" + "-" -> {
-                return num1 / num2 - num3;
-            }
-            case "/" + "*" -> {
-                return num1 / num2 * num3;
-            }
-            case "/" + "/" -> {
-                return num1 / num2 / num3;
             }
             default -> throw new IllegalArgumentException("Something went wrong");
         }

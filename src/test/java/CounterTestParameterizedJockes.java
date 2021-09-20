@@ -28,6 +28,7 @@ public class CounterTestParameterizedJockes {
     public static Collection<Object[]> test(){
         return Arrays.asList(new Object[][]{
                 {10, "5 + 5"},
+                {10, "5 - 5 + 5 + 5"},
                 {23, "20 + 2 + 1"},
                 {18, "20 - 1 * 2"},
                 {11, "20 / 2 + 1"},
@@ -35,7 +36,7 @@ public class CounterTestParameterizedJockes {
                 {25000, "100 / 2 * 500"},
                 {10, "             5 + 10 - 5"},
                 {10, "20 / 10 * 5"},
-                {10, "20 / 10 * 5 + 5"}
+                {15, "20 / 10 * 5 + 5"}
 
         });
     }
