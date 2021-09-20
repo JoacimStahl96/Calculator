@@ -2,7 +2,7 @@ import java.util.List;
 
 public class JockesRefactorCounter {
 
-    public double stringAddSubParameterized(String inputValue) {
+    public double mathValueFromStrings(String inputValue) {
 
         if (inputValue.isEmpty()) {
             throw new IllegalArgumentException("No value found");

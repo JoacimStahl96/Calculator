@@ -21,7 +21,7 @@ public class CounterTestParameterizedJockes {
 
     @Test
     public void test_strings_div_multi_success(){
-        assertEquals(result, jockesRefactorCounter.stringAddSubParameterized(value));
+        assertEquals(result, jockesRefactorCounter.mathValueFromStrings(value));
     }
 
     @Parameterized.Parameters
