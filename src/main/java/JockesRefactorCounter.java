@@ -14,15 +14,15 @@ public class JockesRefactorCounter {
         String type = inputList.get(1);
 
         if (isValuesAllowed(num1, num2, type)) {
-            throw new IllegalArgumentException("Cannot be divided or multiplied by zero");
+            throw new IllegalArgumentException("Cannot be divided by zero");
         }
 
         if (inputList.size() > 3) {
-          String  type2 = inputList.get(3);
-           double num3 = Double.parseDouble(inputList.get(4));
+            String type2 = inputList.get(3);
+            double num3 = Double.parseDouble(inputList.get(4));
 
             if (isValuesAllowed(num3, type2)) {
-                throw new IllegalArgumentException("Cannot be divided or multiplied by zero");
+                throw new IllegalArgumentException("Cannot be divided by zero");
             }
             return advancedCalc(num1, num2, num3, type, type2);
 
@@ -31,11 +31,11 @@ public class JockesRefactorCounter {
     }
 
     public boolean isValuesAllowed(double num1, double num2, String type) {
-        return (num2 == 0 || num1 == 0) && (type.equals("/") || type.equals("*"));
+        return (num2 == 0 || num1 == 0) && (type.equals("/"));
     }
 
     public boolean isValuesAllowed(double num3, String type2) {
-        return num3 == 0 && (type2.equals("/") || type2.equals("*"));
+        return num3 == 0 && (type2.equals("/"));
     }
 
     public double addition(double num1, double num2) {
