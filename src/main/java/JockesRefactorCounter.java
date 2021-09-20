@@ -11,18 +11,15 @@ public class JockesRefactorCounter {
 
         double num1 = Double.parseDouble(inputList.get(0));
         double num2 = Double.parseDouble(inputList.get(2));
-        double num3;
-
         String type = inputList.get(1);
-        String type2;
 
         if (isValuesAllowed(num1, num2, type)) {
             throw new IllegalArgumentException("Cannot be divided or multiplied by zero");
         }
 
         if (inputList.size() > 3) {
-            type2 = inputList.get(3);
-            num3 = Double.parseDouble(inputList.get(4));
+          String  type2 = inputList.get(3);
+           double num3 = Double.parseDouble(inputList.get(4));
 
             if (isValuesAllowed(num3, type2)) {
                 throw new IllegalArgumentException("Cannot be divided or multiplied by zero");
