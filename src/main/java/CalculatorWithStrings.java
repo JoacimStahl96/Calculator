@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class CalculatorWithStrings {
 
@@ -13,15 +12,10 @@ public class CalculatorWithStrings {
         if (inputValue.isEmpty()) {
             throw new IllegalArgumentException("No value found");
         }
-        List<String> inputList = List.of(inputValue.trim().split(" "));
+        List<String> inputList = new ArrayList<>(List.of(inputValue.trim().split(" ")));
 
-        List<String> operators = new ArrayList<>(List.of("*", "/", "-", "+"));
+        String[] operators = {"*", "/", "-", "+"};
 
-        /*if (inputList.contains("*") || inputList.contains("/")){
-            List<String> rearrangedInputList = new ArrayList<>();
-
-            System.out.println("inputList: " + inputList);
-        }*/
         double sum = Double.parseDouble(inputList.get(0));
         double result = 0;
 
@@ -32,8 +26,9 @@ public class CalculatorWithStrings {
 
             result = simpleCalc(sum, Double.parseDouble(inputList.get(i + 1)), inputList.get(i));
             sum = result;
+
         }
-        return result;
+        return result ;
     }
 
     public boolean isValuesAllowed(double num1, double num2, String type) {
