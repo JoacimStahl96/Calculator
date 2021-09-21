@@ -1,11 +1,13 @@
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class JockesRefactorCounter {
+public class CalculatorWithStrings {
 
     public double mathValueFromStrings(String inputValue) {
 
         /*
-            TODO fixa matematiska regler, smäller på test 3
+            TODO fixa matematiska regler, smäller på test [3], [4], [5]
          */
 
         if (inputValue.isEmpty()) {
@@ -13,6 +15,13 @@ public class JockesRefactorCounter {
         }
         List<String> inputList = List.of(inputValue.trim().split(" "));
 
+        List<String> operators = new ArrayList<>(List.of("*", "/", "-", "+"));
+
+        /*if (inputList.contains("*") || inputList.contains("/")){
+            List<String> rearrangedInputList = new ArrayList<>();
+
+            System.out.println("inputList: " + inputList);
+        }*/
         double sum = Double.parseDouble(inputList.get(0));
         double result = 0;
 
@@ -20,7 +29,6 @@ public class JockesRefactorCounter {
 
             System.out.println("sum: " + sum + " operator: " + inputList.get(i) + " next number: " + inputList.get(i + 1));
             System.out.println("========================");
-            System.out.println(simpleCalc(sum, Double.parseDouble(inputList.get(i + 1)), inputList.get(i)));
 
             result = simpleCalc(sum, Double.parseDouble(inputList.get(i + 1)), inputList.get(i));
             sum = result;
