@@ -13,15 +13,66 @@ public class CalculatorWithStrings {
         if (inputValue.isEmpty()) {
             throw new IllegalArgumentException("No value found");
         }
-        List<String> inputList = List.of(inputValue.trim().split(" "));
+        List<String> inputList = new ArrayList<>(List.of(inputValue.trim().split(" ")));
 
-        List<String> operators = new ArrayList<>(List.of("*", "/", "-", "+"));
 
-        /*if (inputList.contains("*") || inputList.contains("/")){
+        for (int i = 1; i < inputList.size(); i += 2) {
+
+            if (inputList.contains("*")) {
+
+                i = inputList.indexOf("*");
+
+                double sum = simpleCalc(Double.parseDouble(inputList.get(i - 1)), Double.parseDouble(inputList.get(i + 1)), inputList.get(i));
+                inputList.remove(i - 1);
+                inputList.remove(i - 1);
+                inputList.remove(i - 1);
+                inputList.add(i - 1, String.valueOf(sum));
+
+
+            }
+        }
+        for (int i = 1; i < inputList.size(); i += 2) {
+
+            if (inputList.contains("/")) {
+
+                i = inputList.indexOf("/");
+
+                double sum = simpleCalc(Double.parseDouble(inputList.get(i - 1)), Double.parseDouble(inputList.get(i + 1)), inputList.get(i));
+                inputList.remove(i - 1);
+                inputList.remove(i - 1);
+                inputList.remove(i - 1);
+                inputList.add(i - 1, String.valueOf(sum));
+
+
+            }
+        }
+
+
+    /*        if ( inputList.contains("/")){
+
+                i= inputList.indexOf("/");
+
+                double sum = simpleCalc(Double.parseDouble(inputList.get(i - 1)), Double.parseDouble(inputList.get(i + 1)), inputList.get(i));
+                inputList.remove(i-1);
+                inputList.remove(i-1);
+                inputList.remove(i-1);
+                inputList.add(i-1,String.valueOf(sum));
+
+
+            }
+
+     */
+
+
+        String[] operators = {"*", "/", "-", "+"};
+    /*
+        if (inputList.contains("*") || inputList.contains("/")){
             List<String> rearrangedInputList = new ArrayList<>();
 
             System.out.println("inputList: " + inputList);
-        }*/
+        }
+
+    */
         double sum = Double.parseDouble(inputList.get(0));
         double result = 0;
 

@@ -8,13 +8,13 @@ import java.util.Collection;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(Parameterized.class)
-public class CounterTestParameterizedJockes {
+public class CalculatorWithStringsTestParameterized {
 
     CalculatorWithStrings calculatorWithStrings = new CalculatorWithStrings();
     String value;
     int result;
 
-    public CounterTestParameterizedJockes(int result, String value) {
+    public CalculatorWithStringsTestParameterized(int result, String value) {
         this.result = result;
         this.value = value;
     }
