@@ -1,39 +1,122 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Stack;
 
 public class CalculatorWithStrings {
 
-    public double mathValueFromStrings(String inputValue) {
+    public double mathValueFromStrings(String input) { // Converts the input value to a postfix string, using the Shunting-yard algorithm, passes the resulting postfix string to
+                                                       // the getResultFromPostfix() method, which turns the postfix string into the result of the equation and returns that result
 
-        /*
-            TODO fixa matematiska regler, smäller på test [3], [4], [5]
-         */
-
-        if (inputValue.isEmpty()) {
+        if (input.isEmpty()) {
             throw new IllegalArgumentException("No value found");
         }
-        List<String> inputList = List.of(inputValue.trim().split(" "));
 
-        List<String> operators = new ArrayList<>(List.of("*", "/", "-", "+"));
+        String result = "";
+        Stack<Character> stack = new Stack<>();
 
-        /*if (inputList.contains("*") || inputList.contains("/")){
-            List<String> rearrangedInputList = new ArrayList<>();
+        for (int i = 0; i < input.length(); i++) { // Iterates over the input string and check each character. Does different things based on what that character is.
+                                                   // Parentheses don't seem to work currently.
 
-            System.out.println("inputList: " + inputList);
-        }*/
-        double sum = Double.parseDouble(inputList.get(0));
-        double result = 0;
+            while (input.charAt(i) == ' ') { // If the character is a whitespace, skip it
+                ++i;
+            }
 
-        for (int i = 1; i < inputList.size(); i += 2) {
+            if (Character.isDigit(input.charAt(i))) { // If the character is a digit, add it to the result String
+                result += input.charAt(i);
 
-            System.out.println("sum: " + sum + " operator: " + inputList.get(i) + " next number: " + inputList.get(i + 1));
-            System.out.println("========================");
+                if (i + 1 >= input.length() || !Character.isDigit(input.charAt(i+1))) { // If the character after the digit is not a digit, add a whitespace to result instead
+                    result += ' ';
+                }
+            } else if (getPrecedence(input.charAt(i)) != 0) { // If the current character is an operator
+                // While the stack isn't empty and the precedence of the last operator on the stack is greater than, or equal to the precedence of the current operator,
+                // add the last character from the stack to the result string, put a whitespace after it and remove it from the stack
+                while ((!stack.isEmpty()) && (getPrecedence(stack.peek()) >= getPrecedence(input.charAt(i))) && (stack.peek() != '(')) {
+                    result += stack.peek();
+                    result += ' ';
+                    stack.pop();
+                }
+                stack.push(input.charAt(i)); // Add the current operator to the stack after removing the last operator from the stack
+            } else if (input.charAt(i) == '(') {
+                stack.push(input.charAt(i));
+            } else if (input.charAt(i) == ')') {
+                while (!stack.isEmpty() && stack.peek() != '(') {
+                    result += stack.peek();
+                    stack.pop();
+                }
 
-            result = simpleCalc(sum, Double.parseDouble(inputList.get(i + 1)), inputList.get(i));
-            sum = result;
+                stack.pop();
+            }
         }
-        return result;
+
+        while (!stack.isEmpty()) { // Dump all of the remaining items from the stack into the result string
+            result += stack.pop();
+            result += ' ';
+        }
+
+        return getResultFromPostfix(result); // Return the result from the postfix string
+
+    }
+
+    public double getResultFromPostfix(String postfix) { // Get the result from the postfix string
+        Stack<Integer> stack = new Stack<>();
+        System.out.println(postfix);
+
+        for (int i = 0; i < postfix.length(); i++) {
+            char c = postfix.charAt(i);
+
+            if (c == ' ') { // Skip whitespaces
+                continue;
+            } else if (Character.isDigit(c)) { // If the character is a digit, push it to the stack. If multiple digits are in a row, push them together
+                int n = 0;
+                while(Character.isDigit(c)) {
+                    n = n * 10 + (int)(c - '0');
+                    i++;
+                    c = postfix.charAt(i);
+                }
+                i--;
+
+                stack.push(n);
+            } else { // If the character is an operator, pop two numbers from the stack, store them in variables and apply that operator to them. Then push the result to the stack
+                     // For example: "1 + 2 + 3 - 2" gets converted to "1 2 + 3 + 2 -". 1 and 2 are pushed to the stack. When the loop gets to the 1st +, it stores 1 and 2 in val1 and val2
+                     // respectively, and adds them together. It then pushes the result, which is 3, to the stack. It keeps checking the following characters in the string and gets to 3.
+                     // When it gets to the 2nd +, it stores the two 3s from the stack into val1 and val2 and adds them together, then pushes the result to the stack (6). Pushes 2 to the stack,
+                     // gets to - and does the subtraction 6 - 2 and pushes 4 to the stack, which is the final result
+                int val1 = stack.pop();
+                int val2 = stack.pop();
+
+                switch (c) {
+                    case '+':
+                        stack.push(val2 + val1);
+                        break;
+                    case '-':
+                        stack.push(val2 - val1);
+                        break;
+                    case '/':
+                        stack.push(val2 / val1);
+                        break;
+                    case '*':
+                        stack.push(val2 * val1);
+                        break;
+                }
+            }
+        }
+        System.out.println(stack);
+        return stack.pop(); // Return the result from the stack
+    }
+
+    private int getPrecedence (char ch) { // Checks the precedence of the operators. * and / have the same precedence as each other and higher precedence than + and -, which also have
+                                          // the same precedence
+        switch (ch) {
+            case '+':
+            case '-':
+                return 1;
+
+            case '*':
+            case '/':
+                return 2;
+        }
+        return -1;
     }
 
     public boolean isValuesAllowed(double num1, double num2, String type) {
