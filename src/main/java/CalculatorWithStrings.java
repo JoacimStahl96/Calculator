@@ -82,7 +82,7 @@ public class CalculatorWithStrings {
                 double val1 = stack.pop();
                 double val2 = stack.pop();
 
-                if (val1 == 0) {
+                if (c == '/' && val1 == 0) {
                     throw new ArithmeticException("Division by zero");
                 }
 

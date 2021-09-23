@@ -155,4 +155,5 @@ public class CounterTest {
         IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> counter.mathValueFromStrings("3 + 2a * 2"));
         assertEquals("Invalid character", illegalArgumentException.getMessage());
     }
+
 }
