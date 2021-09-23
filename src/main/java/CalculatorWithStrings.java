@@ -73,11 +73,12 @@ public class CalculatorWithStrings {
                 i--;
 
                 stack.push(n);
-            } else if (c == '+' || c == '-' || c == '*' || c == '/' || c == '^') { // If the character is an operator, pop two numbers from the stack, store them in variables and apply that operator to them. Then push the result to the stack
-                     // For example: "1 + 2 + 3 - 2" gets converted to "1 2 + 3 + 2 -". 1 and 2 are pushed to the stack. When the loop gets to the 1st +, it stores 1 and 2 in val1 and val2
-                     // respectively, and adds them together. It then pushes the result, which is 3, to the stack. It keeps checking the following characters in the string and gets to 3.
-                     // When it gets to the 2nd +, it stores the two 3s from the stack into val1 and val2 and adds them together, then pushes the result to the stack (6). Pushes 2 to the stack,
-                     // gets to - and does the subtraction 6 - 2 and pushes 4 to the stack, which is the final result
+            } else if (c == '+' || c == '-' || c == '*' || c == '/' || c == '^') {
+                 // If the character is an operator, pop two numbers from the stack, store them in variables and apply that operator to them. Then push the result to the stack
+                 // For example: "1 + 2 + 3 - 2" gets converted to "1 2 + 3 + 2 -". 1 and 2 are pushed to the stack. When the loop gets to the 1st +, it stores 1 and 2 in val1 and val2
+                 // respectively, and adds them together. It then pushes the result, which is 3, to the stack. It keeps checking the following characters in the string and gets to 3.
+                 // When it gets to the 2nd +, it stores the two 3s from the stack into val1 and val2 and adds them together, then pushes the result to the stack (6). Pushes 2 to the stack,
+                 // gets to - and does the subtraction 6 - 2 and pushes 4 to the stack, which is the final result
                 double val1 = stack.pop();
                 double val2 = stack.pop();
 

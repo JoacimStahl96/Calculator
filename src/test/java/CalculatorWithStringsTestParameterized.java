@@ -25,8 +25,8 @@ public class CalculatorWithStringsTestParameterized {
     }
 
     @Parameterized.Parameters
-    public static Collection<Object[]> test(){
-        return Arrays.asList(new Object[][]{
+    public static Collection<Object[]> test() {
+        return Arrays.asList(new Object[][] {
                 {10, "5 + 5"},
                 {10, "5 - 5 + 5 + 5"},
                 {23, "20 + 2 + 1"},

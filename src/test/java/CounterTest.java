@@ -133,27 +133,26 @@ public class CounterTest {
     }
 
     @Test
-    public void test_strings_div_multi_fail() {
-
-        ArithmeticException illegalArgumentException = assertThrows(ArithmeticException.class, () -> counter.mathValueFromStrings("40 / 3 * 0"));
-        assertEquals("Division by zero", illegalArgumentException.getMessage());
-    }
-
-    @Test
     public void test_strings_div_multi_zero_fail() {
         ArithmeticException illegalArgumentException = assertThrows(ArithmeticException.class, () -> counter.mathValueFromStrings("40 / 0 * 3"));
         assertEquals("Division by zero", illegalArgumentException.getMessage());
     }
 
     @Test
-    public void test_strings_multi_multi_zero_fail() {
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> counter.mathValueFromStrings("40 * 0 * 3"));
-        assertEquals("Cannot be divided or multiplied by zero", illegalArgumentException.getMessage());
-    }
-
-    @Test
     public void test_strings_empty_string_fail() {
         IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> counter.mathValueFromStrings(""));
         assertEquals("No value found", illegalArgumentException.getMessage());
+    }
+
+    @Test
+    public void test_strings_entered_letter_fail() {
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> counter.mathValueFromStrings("a"));
+        assertEquals("Invalid character", illegalArgumentException.getMessage());
+    }
+
+    @Test
+    public void test_strings_entered_letter_in_middle_fail() {
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> counter.mathValueFromStrings("3 + 2a * 2"));
+        assertEquals("Invalid character", illegalArgumentException.getMessage());
     }
 }
