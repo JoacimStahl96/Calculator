@@ -13,7 +13,7 @@ public class CalculatorWithStrings {
 
         System.out.println("Input: " + input);
 
-        String result = "";
+        StringBuilder result = new StringBuilder();
         Stack<Character> stack = new Stack<>();
 
         for (int i = 0; i < input.length(); i++) { // Iterates over the input string and check each character. Does different things based on what that character is.
@@ -23,37 +23,37 @@ public class CalculatorWithStrings {
             }
 
             if (Character.isDigit(input.charAt(i))) { // If the character is a digit, add it to the result String
-                result += input.charAt(i);
+                result.append(input.charAt(i));
 
                 if (i + 1 >= input.length() || !Character.isDigit(input.charAt(i+1))) { // If the character after the digit is not a digit, add a whitespace to result instead
-                    result += ' ';
+                    result.append(' ');
                 }
             } else if (input.charAt(i) == '(') { // If the character is a (, push it to the stack
                 stack.push(input.charAt(i));
             } else if (input.charAt(i) == ')') { // If the character is a ), pop the last item from the stack and add it to result until a ( is encountered. When it is, remove it,
                                                  // but don't add it to result
                 while (!stack.isEmpty() && stack.peek() != '(') {
-                    result += stack.pop();
-                    result += ' ';
+                    result.append(stack.pop());
+                    result.append(' ');
                 }
                 stack.pop();
             } else if (getPrecedence(input.charAt(i)) != 0) { // If the current character is an operator
                 // While the stack isn't empty and the precedence of the last operator on the stack is greater than, or equal to the precedence of the current operator,
                 // add the last character from the stack to the result string, put a whitespace after it and remove it from the stack
                 while ((!stack.isEmpty()) && (getPrecedence(stack.peek()) >= getPrecedence(input.charAt(i))) && (stack.peek() != '(')) {
-                    result += stack.pop();
-                    result += ' ';
+                    result.append(stack.pop());
+                    result.append(' ');
                 }
                 stack.push(input.charAt(i)); // Add the current operator to the stack after removing the last operator from the stack
             }
         }
 
         while (!stack.isEmpty()) { // Dump all of the remaining items from the stack into the result string
-            result += stack.pop();
-            result += ' ';
+            result.append(stack.pop());
+            result.append(' ');
         }
 
-        return getResultFromPostfix(result); // Return the result from the postfix string
+        return getResultFromPostfix(result.toString()); // Return the result from the postfix string
 
     }
 
@@ -89,23 +89,12 @@ public class CalculatorWithStrings {
                 }
 
                 switch (c) {
-                    case '+':
-                        stack.push(addition(val2, val1));
-                        break;
-                    case '-':
-                        stack.push(subtraction(val2, val1));
-                        break;
-                    case '/':
-                        stack.push(division(val2, val1));
-                        break;
-                    case '*':
-                        stack.push(multiplication(val2, val1));
-                        break;
-                    case '^':
-                        stack.push(Math.pow(val2, val1));
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Something went wrong");
+                    case '+' -> stack.push(addition(val2, val1));
+                    case '-' -> stack.push(subtraction(val2, val1));
+                    case '/' -> stack.push(division(val2, val1));
+                    case '*' -> stack.push(multiplication(val2, val1));
+                    case '^' -> stack.push(Math.pow(val2, val1));
+                    default -> throw new IllegalArgumentException("Something went wrong");
                 }
             }
         }
@@ -115,19 +104,12 @@ public class CalculatorWithStrings {
 
     private int getPrecedence (char ch) { // Checks the precedence of the operators. * and / have the same precedence as each other and higher precedence than + and -, which also have
                                           // the same precedence
-        switch (ch) {
-            case '+':
-            case '-':
-                return 1;
-
-            case '*':
-            case '/':
-                return 2;
-
-            case '^':
-                return 3;
-        }
-        return -1;
+        return switch (ch) {
+            case '+', '-' -> 1;
+            case '*', '/' -> 2;
+            case '^' -> 3;
+            default -> -1;
+        };
     }
 
     public boolean isValuesAllowed(double num1, double num2, String type) {
