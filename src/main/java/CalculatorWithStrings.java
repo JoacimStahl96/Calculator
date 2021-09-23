@@ -112,14 +112,6 @@ public class CalculatorWithStrings {
         };
     }
 
-    public boolean isValuesAllowed(double num1, double num2, String type) {
-        return (num2 == 0 || num1 == 0) && (type.equals("/"));
-    }
-
-    public boolean isValuesAllowed(double num3, String type2) {
-        return num3 == 0 && (type2.equals("/"));
-    }
-
     public double addition(double num1, double num2) {
         return num1 + num2;
     }
@@ -139,22 +131,4 @@ public class CalculatorWithStrings {
             throw new ArithmeticException("Division by zero");
         }
     }
-
-//    public double simpleCalc(double num1, double num2, String type) {
-//        switch (type) {
-//            case "+" -> {
-//                return addition(num1, num2);
-//            }
-//            case "-" -> {
-//                return subtraction(num1, num2);
-//            }
-//            case "*" -> {
-//                return multiplication(num1, num2);
-//            }
-//            case "/" -> {
-//                return division(num1, num2);
-//            }
-//            default -> throw new IllegalArgumentException("Something went wrong");
-//        }
-//    }
 }
