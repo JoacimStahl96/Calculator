@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import java.util.Stack;
 
 public class CalculatorWithStrings {
@@ -64,19 +61,19 @@ public class CalculatorWithStrings {
         for (int i = 0; i < postfix.length(); i++) {
             char c = postfix.charAt(i);
 
-            if (c == ' ') { // Skip whitespaces
-                continue;
-            } else if (Character.isDigit(c)) { // If the character is a digit, push it to the stack. If multiple digits are in a row, push them together
+            if (Character.isDigit(c)) { // If the character is a digit, push it to the stack. If multiple digits are in a row, push them together
                 double n = 0;
+
                 while(Character.isDigit(c)) {
-                    n = n * 10 + (int)(c - '0');
+                    n = n * 10 + (c - '0');
                     i++;
                     c = postfix.charAt(i);
                 }
+
                 i--;
 
                 stack.push(n);
-            } else { // If the character is an operator, pop two numbers from the stack, store them in variables and apply that operator to them. Then push the result to the stack
+            } else if (c == '+' || c == '-' || c == '*' || c == '/' || c == '^') { // If the character is an operator, pop two numbers from the stack, store them in variables and apply that operator to them. Then push the result to the stack
                      // For example: "1 + 2 + 3 - 2" gets converted to "1 2 + 3 + 2 -". 1 and 2 are pushed to the stack. When the loop gets to the 1st +, it stores 1 and 2 in val1 and val2
                      // respectively, and adds them together. It then pushes the result, which is 3, to the stack. It keeps checking the following characters in the string and gets to 3.
                      // When it gets to the 2nd +, it stores the two 3s from the stack into val1 and val2 and adds them together, then pushes the result to the stack (6). Pushes 2 to the stack,
@@ -96,10 +93,14 @@ public class CalculatorWithStrings {
                     case '^' -> stack.push(Math.pow(val2, val1));
                     default -> throw new IllegalArgumentException("Something went wrong");
                 }
+            } else if (c != ' ') {
+                throw new IllegalArgumentException("Invalid character");
             }
         }
-        System.out.println("Result: " + stack + "\n");
-        return Math.round(stack.pop()); // Return the result from the stack
+
+        double result = stack.pop();
+        System.out.printf("Result: %.1f\n%n", result);
+        return Math.round(result); // Return the result from the stack
     }
 
     private int getPrecedence (char ch) { // Checks the precedence of the operators. * and / have the same precedence as each other and higher precedence than + and -, which also have
