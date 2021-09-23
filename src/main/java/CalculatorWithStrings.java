@@ -34,6 +34,7 @@ public class CalculatorWithStrings {
                                                  // but don't add it to result
                 while (!stack.isEmpty() && stack.peek() != '(') {
                     result += stack.pop();
+                    result += ' ';
                 }
                 stack.pop();
             } else if (getPrecedence(input.charAt(i)) != 0) { // If the current character is an operator
@@ -109,7 +110,7 @@ public class CalculatorWithStrings {
             }
         }
         System.out.println("Result: " + stack + "\n");
-        return stack.pop(); // Return the result from the stack
+        return Math.round(stack.pop()); // Return the result from the stack
     }
 
     private int getPrecedence (char ch) { // Checks the precedence of the operators. * and / have the same precedence as each other and higher precedence than + and -, which also have
