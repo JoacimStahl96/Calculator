@@ -99,7 +99,7 @@ public class CalculatorWithStrings {
         }
 
         double result = stack.pop();
-        System.out.printf("Result: %.1f\n%n", result);
+        System.out.printf("Result: %.1f%n%n", result);
         return Math.round(result); // Return the result from the stack
     }
 
