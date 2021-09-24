@@ -1,11 +1,12 @@
 import org.junit.Test;
+import org.w3c.dom.css.Counter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CounterTest {
 
-    Counter counter = new Counter();
+    CalculatorWithStrings counter = new CalculatorWithStrings();
 
     @Test
     public void test_addition_success() {
@@ -24,34 +25,14 @@ public class CounterTest {
         assertEquals(12, counter.subtraction(22, 10));
     }
 
-    @Test
-    public void test_add_sub_multiplication_division() {
-        // kommenterad kod "smäller"
 
-        assertEquals(5, counter.addSubMultDiv("addition", 2, 3));
-        //   assertEquals(9, counter.addSubMultDiv("addition", 2,3));
-
-        assertEquals(-1, counter.addSubMultDiv("subtraction", 2, 3));
-        //   assertEquals(1, counter.addSubMultDiv("subtraction", 2,3));
-
-        assertEquals(6, counter.addSubMultDiv("multiplication", 2, 3));
-        //   assertEquals(60, counter.addSubMultDiv("multiplication", 2,3));
-
-        //   assertEquals(300, counter.addSubMultDiv("division", 15,5));
-        assertEquals(3, counter.addSubMultDiv("division", 15, 5));
-
-        // denna smäller pga number2 = 0;
-        assertEquals(3, counter.addSubMultDiv("division", 15, 0));
-
-        //  assertEquals(3, counter.addSubMultDiv("", 9, 3));
-    }
 
     @Test
     public void test_strings_to_addition() {
         // grön
-        assertEquals(4, counter.stringAddSub("2 + 2"));
+        assertEquals(4, counter.mathValueFromStrings("2 + 2"));
 
-        assertEquals(6, counter.stringAddSub("2 + 2 * 2"));
+        assertEquals(6, counter.mathValueFromStrings("2 + 2 * 2"));
 
         //smäller
         //    assertEquals(4, counter.stringAddSub(""));
@@ -63,118 +44,105 @@ public class CounterTest {
         // assertEquals(4,counter.stringAddSub("5 sub 2"));
 
         // denna är grön - trimmar innan första siffran
-        assertEquals(5, counter.stringAddSub("    7 - 2"));
+        assertEquals(5, counter.mathValueFromStrings("    7 - 2"));
 
     }
 
     @Test
     public void test_strings_add_add_success() {
-        assertEquals(6, counter.stringAddSub("2 + 2 + 2"));
+        assertEquals(6, counter.mathValueFromStrings("2 + 2 + 2"));
     }
 
     @Test
     public void test_strings_add_sub_success() {
-        assertEquals(2, counter.stringAddSub("2 + 2 - 2"));
+        assertEquals(2, counter.mathValueFromStrings("2 + 2 - 2"));
     }
 
     @Test
     public void test_strings_add_multi_success() {
-        assertEquals(6, counter.stringAddSub("2 + 2 * 2"));
+        assertEquals(6, counter.mathValueFromStrings("2 + 2 * 2"));
     }
 
     @Test
     public void test_strings_add_division_success() {
-        assertEquals(3, counter.stringAddSub("2 + 2 / 2"));
+        assertEquals(3, counter.mathValueFromStrings("2 + 2 / 2"));
     }
 
     @Test
     public void test_strings_sub_add_success() {
-        assertEquals(2, counter.stringAddSub("2 - 2 + 2"));
+        assertEquals(2, counter.mathValueFromStrings("2 - 2 + 2"));
     }
 
     @Test
     public void test_strings_sub_sub_success() {
-        assertEquals(-2, counter.stringAddSub("2 - 2 - 2"));
+        assertEquals(-2, counter.mathValueFromStrings("2 - 2 - 2"));
     }
 
     @Test
     public void test_strings_sub_multi_success() {
-        assertEquals(-2, counter.stringAddSub("2 - 2 * 2"));
+        assertEquals(-2, counter.mathValueFromStrings("2 - 2 * 2"));
     }
 
     @Test
     public void test_strings_sub_div_success() {
-        assertEquals(1, counter.stringAddSub("2 - 2 / 2"));
+        assertEquals(1, counter.mathValueFromStrings("2 - 2 / 2"));
     }
 
     @Test
     public void test_strings_multi_add_success() {
-        assertEquals(6, counter.stringAddSub("2 * 2 + 2"));
+        assertEquals(6, counter.mathValueFromStrings("2 * 2 + 2"));
     }
 
     @Test
     public void test_strings_multi_sub_success() {
-        assertEquals(10, counter.stringAddSub("2 * 6 - 2"));
+        assertEquals(10, counter.mathValueFromStrings("2 * 6 - 2"));
     }
 
     @Test
     public void test_strings_multi_multi_success() {
-        assertEquals(8, counter.stringAddSub("2 * 2 * 2"));
+        assertEquals(8, counter.mathValueFromStrings("2 * 2 * 2"));
     }
 
     @Test
     public void test_strings_multi_div_success() {
-        assertEquals(2, counter.stringAddSub("2 * 2 / 2"));
+        assertEquals(2, counter.mathValueFromStrings("2 * 2 / 2"));
     }
 
     @Test
     public void test_strings_div_add_success() {
-        assertEquals(5, counter.stringAddSub("6 / 2 + 2"));
+        assertEquals(5, counter.mathValueFromStrings("6 / 2 + 2"));
     }
 
     @Test
     public void test_strings_div_sub_success() {
-        assertEquals(4, counter.stringAddSub("12 / 2 - 2"));
+        assertEquals(4, counter.mathValueFromStrings("12 / 2 - 2"));
     }
 
     @Test
     public void test_strings_div_multi_success() {
-        assertEquals(30, counter.stringAddSub("20 / 2 * 3"));
+        assertEquals(30, counter.mathValueFromStrings("20 / 2 * 3"));
     }
 
     @Test
     public void test_strings_div_div_success() {
-        assertEquals(4, counter.stringAddSub("40 / 3 / 3 /"));
+        assertEquals(4, counter.mathValueFromStrings("40 / 3 / 3"));
     }
 
     @Test
     public void test_strings_div_div_fail() {
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> counter.stringAddSub("40 / 3 / 0"));
-        assertEquals("Cannot be divided or multiplied by zero", illegalArgumentException.getMessage());
-    }
-
-    @Test
-    public void test_strings_div_multi_fail() {
-
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> counter.stringAddSub("40 / 3 * 0"));
-        assertEquals("Cannot be divided or multiplied by zero", illegalArgumentException.getMessage());
+        ArithmeticException arithmeticException = assertThrows(ArithmeticException.class, () -> counter.mathValueFromStrings("40 / 3 / 0"));
+        assertEquals("Division by zero", arithmeticException.getMessage());
     }
 
     @Test
     public void test_strings_div_multi_zero_fail() {
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> counter.stringAddSub("40 / 0 * 3"));
-        assertEquals("Cannot be divided or multiplied by zero", illegalArgumentException.getMessage());
-    }
-
-    @Test
-    public void test_strings_multi_multi_zero_fail() {
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> counter.stringAddSub("40 * 0 * 3"));
-        assertEquals("Cannot be divided or multiplied by zero", illegalArgumentException.getMessage());
+        ArithmeticException arithmeticException = assertThrows(ArithmeticException.class, () -> counter.mathValueFromStrings("40 / 0 * 3"));
+        assertEquals("Division by zero", arithmeticException.getMessage());
     }
 
     @Test
     public void test_strings_empty_string_fail() {
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> counter.stringAddSub(""));
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> counter.mathValueFromStrings(""));
         assertEquals("No value found", illegalArgumentException.getMessage());
     }
 }
