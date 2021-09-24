@@ -69,6 +69,24 @@ public class CalculatorWithStrings {
                     inputList.add(i - 1, String.valueOf(sum));
                 }
             }
+            if (inputList.contains("*") && (inputList.contains("+") || inputList.contains("-"))) {
+
+                i = inputList.indexOf("*");
+                double sum = simpleCalc(Double.parseDouble(inputList.get(i - 1)), Double.parseDouble(inputList.get(i + 1)), inputList.get(i));
+                inputList.remove(i - 1);
+                inputList.remove(i - 1);
+                inputList.remove(i - 1);
+                inputList.add(i - 1, String.valueOf(sum));
+            }
+            if (inputList.contains("/") && (inputList.contains("+") || inputList.contains("-"))) {
+
+                i = inputList.indexOf("/");
+                double sum = simpleCalc(Double.parseDouble(inputList.get(i - 1)), Double.parseDouble(inputList.get(i + 1)), inputList.get(i));
+                inputList.remove(i - 1);
+                inputList.remove(i - 1);
+                inputList.remove(i - 1);
+                inputList.add(i - 1, String.valueOf(sum));
+            }
         }
         return inputList;
     }
