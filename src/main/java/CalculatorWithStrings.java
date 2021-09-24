@@ -16,16 +16,13 @@ public class CalculatorWithStrings {
         double result = 0;
 
         for (int i = 1; i < inputList.size(); i += 2) {
-            System.out.println("sum: " + sum + " operator: " + inputList.get(i) + " next number: " + inputList.get(i + 1));
-            System.out.println("========================");
-
             result = simpleCalc(sum, Double.parseDouble(inputList.get(i + 1)), inputList.get(i));
             sum = result;
         }
         return result;
     }
 
-    public ArrayList<String> calculateInRightOrder(ArrayList<String> inputList) {
+    public void calculateInRightOrder(ArrayList<String> inputList) {
         for (int i = 1; i < inputList.size(); i += 2) {
 
             if (inputList.contains("*") && !inputList.contains("/")) {
@@ -88,7 +85,6 @@ public class CalculatorWithStrings {
                 inputList.add(i - 1, String.valueOf(sum));
             }
         }
-        return inputList;
     }
 
     public double addition(double num1, double num2) {
